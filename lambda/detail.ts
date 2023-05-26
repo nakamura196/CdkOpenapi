@@ -1,9 +1,9 @@
 export const handler = async function (event: any) {
   console.log("request:", JSON.stringify(event, undefined, 2));
-  const name = event.queryStringParameters?.name || "World";
+  const id = event.pathParameters?.id || "1";
 
   const body = {
-    message: `Hello ${name}!`,
+    message: `Hello ${id}!`,
   };
 
   return {

@@ -8,7 +8,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "mockapi": "docker run --rm -it -p 3001:4010 -v ${PWD}:/tmp -P stoplight/prism:4 mock -h 0.0.0.0 --cors /Users/nakamura/git/hi_api/CdkOpenapi/openapi/openapi.yaml"
+
   },
   "devDependencies": {
     "@alma-cdk/openapix": "^0.0.50",
@@ -21,7 +23,10 @@
     "typescript": "~5.0.4"
   },
   "dependencies": {
+    "@aws-sdk/credential-providers": "^3.338.0",
+    "@opensearch-project/opensearch": "^1.2.0",
     "aws-cdk-lib": "2.81.0",
-    "constructs": "^10.0.0"
+    "constructs": "^10.0.0",
+    "dotenv": "^16.0.3"
   }
 }

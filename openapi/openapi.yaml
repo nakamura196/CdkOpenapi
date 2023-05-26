@@ -3,11 +3,23 @@ info:
   title: Hello API
   description: Defines an example “Hello World” API
   version: "0.0.1"
+
+servers:
+  - url: "http://localhost:3000"
+    description: "ローカル環境"
+  - url: "http://sample.com"
+    description: "本番環境"
+
+tags:
+  - name: "test"
+    description: "テスト"
+
 paths:
   "/":
     get:
       operationId: sayHello
       summary: Say Hello
+      tags: ["test"]
       description: Prints out a greeting
       parameters:
       - name: name
@@ -23,6 +35,55 @@ paths:
             "application/json":
               schema:
                 $ref: "#/components/schemas/HelloResponse"
+
+  "/search":
+    get:
+      operationId: search
+      summary: Say Hello
+      description: Prints out a greeting
+      parameters:
+      - name: keyword
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      responses:
+        "200":
+          description: Successful response
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+
+  "/items/{id}":
+    get:
+      operationId: items_[id]
+      summary: 詳細
+      tags: ["test"]
+      description: Prints out a greeting
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          default: ""
+        example: "1"
+      - name: keyword
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ""
+      responses:
+        "200":
+          description: Successful response
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/HelloResponse"
+
 components:
   schemas:
     HelloResponse:
@@ -33,3 +94,19 @@ components:
           type: string
           description: Greeting
           example: Hello World!
+    SearchResponse:
+      description: Response body
+      type: object
+      properties:
+        total:
+          type: number
+          description: 検索結果数
+          example: 1
+        hits:
+          type: array
+          description: 検索結果の配列
+          example:
+            - id: 10
+              name: "hoge 1"
+            - id: 20
+              name: "hoge 2"
